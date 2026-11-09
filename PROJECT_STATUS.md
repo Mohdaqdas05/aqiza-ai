@@ -1,6 +1,6 @@
 # AqizaAI Project Handoff
 
-Updated: 2026-11-09
+Updated: 2026-11-10
 
 Keep this note current when continuing work on AqizaAI. The detailed installation and operator guide is in [README.md](README.md).
 
@@ -24,8 +24,8 @@ Keep this note current when continuing work on AqizaAI. The detailed installatio
 
 ## Recent verification
 
-- The retry feature passed the TypeScript check, lint, and 22 tests before the final Ollama launcher adjustment.
-- The latest `npm run lint` and `npm run build` both passed after changing the local Ollama connect route to launch `ollama serve` in a detached process. The earlier Windows `EPERM` build failure was resolved by removing stale generated `.next` output after confirming no Node process was running.
+- The latest `npm run lint`, all 22 tests, and `npm run build` passed after the Ollama launcher adjustment, using the same local database/auth environment shape configured for CI.
+- The earlier Windows `EPERM` build failure was resolved by removing stale generated `.next` output after confirming no Node process was running.
 - OAuth has not been live-tested because provider credentials are not available in the workspace.
 - Production Vercel deployment is not configured. It needs durable libSQL, Upstash REST URL/token, Auth.js secret, production OAuth callback registrations, and any selected hosted provider keys. The deployment guide is in README.
 
@@ -34,11 +34,12 @@ Keep this note current when continuing work on AqizaAI. The detailed installatio
 - Correct repository for this Next.js app: `Mohdaqdas05/aqiza-ai`.
 - `Mohdaqdas05/aqizaai` is a separate, older Express/Vite/PostgreSQL project. Do not push this Next.js app there.
 - PR #1 (`codex/aqizaai-project-setup` -> `main`) contains the app, detailed README, and handoff note; GitHub reports it open and clean/mergeable.
+- `.github/workflows/ci.yml` runs lint, the existing test suite, and the production build on pull requests to `main` and pushes to `main`; the first GitHub-hosted result is pending.
 - Local folder `D:\aqiza-ai` has no `.git` metadata. Use the connected GitHub integration for follow-up pushes; do not commit environment files or generated build/dependency folders.
 
 ## Remaining work
 
-1. Add CI if the repository should run checks automatically; no workflow checks have run for this PR.
+1. Check the first GitHub Actions result for PR #1 and fix any CI failures.
 2. When credentials are available, test Google OAuth end-to-end and configure GitHub OAuth if desired.
 3. For production, provision durable database and Upstash settings, apply migrations, configure production callback URLs, and deploy.
 4. Continue the product roadmap from the original brief; keep the visual direction above in every UI change.
