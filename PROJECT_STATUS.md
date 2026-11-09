@@ -24,22 +24,21 @@ Keep this note current when continuing work on AqizaAI. The detailed installatio
 
 ## Recent verification
 
-- Most recent reported result: TypeScript check passed, lint passed, and 22 tests passed after the retry feature was added.
-- Production build is still blocked by Windows `EPERM` while Next.js creates folders under `.next/types/app/api/conversations`. The earlier retry reached build-trace collection after output folders were pre-created, but a subsequent clean run hit the same Windows output-directory issue. Resolve build output permissions/locking and record a final successful build result before calling the current work done.
+- The retry feature passed the TypeScript check, lint, and 22 tests before the final Ollama launcher adjustment.
+- The latest `npm run lint` and `npm run build` both passed after changing the local Ollama connect route to launch `ollama serve` in a detached process. The earlier Windows `EPERM` build failure was resolved by removing stale generated `.next` output after confirming no Node process was running.
 - OAuth has not been live-tested because provider credentials are not available in the workspace.
 - Production Vercel deployment is not configured. It needs durable libSQL, Upstash REST URL/token, Auth.js secret, production OAuth callback registrations, and any selected hosted provider keys. The deployment guide is in README.
 
 ## GitHub destination and state
 
-- Correct repository for this Next.js app: `Mohdaqdas05/aqiza-ai` (`main` is empty at the time of this note).
+- Correct repository for this Next.js app: `Mohdaqdas05/aqiza-ai`.
 - `Mohdaqdas05/aqizaai` is a separate, older Express/Vite/PostgreSQL project. Do not push this Next.js app there.
-- Local folder `D:\aqiza-ai` has no `.git` metadata. Use the connected GitHub integration to seed/publish the correct empty repo and open a PR; do not commit environment files or generated build/dependency folders.
+- PR #1 (`codex/aqizaai-project-setup` -> `main`) contains the app, detailed README, and handoff note; GitHub reports it open and clean/mergeable.
+- Local folder `D:\aqiza-ai` has no `.git` metadata. Use the connected GitHub integration for follow-up pushes; do not commit environment files or generated build/dependency folders.
 
 ## Remaining work
 
-1. Finish build verification after resolving the Windows `.next` directory error; preserve test/lint/type-check results.
-2. Push the current app and updated README to the correct GitHub repo and open a reviewable PR against `main`.
-3. Check the PR's CI result and fix any failures caused by the change.
-4. When credentials are available, test Google OAuth end-to-end and configure GitHub OAuth if desired.
-5. For production, provision durable database and Upstash settings, apply migrations, configure production callback URLs, and deploy.
-6. Continue the product roadmap from the original brief; keep the visual direction above in every UI change.
+1. Add CI if the repository should run checks automatically; no workflow checks have run for this PR.
+2. When credentials are available, test Google OAuth end-to-end and configure GitHub OAuth if desired.
+3. For production, provision durable database and Upstash settings, apply migrations, configure production callback URLs, and deploy.
+4. Continue the product roadmap from the original brief; keep the visual direction above in every UI change.

@@ -1,4 +1,4 @@
-import { execFile } from "node:child_process";
+import { spawn } from "node:child_process";
 import type { NextRequest } from "next/server";
 import { getModelReadiness } from "@/lib/model-readiness";
 import { findOllamaExecutable, usesLocalOllamaServer } from "@/lib/ollama";
@@ -12,13 +12,15 @@ let startAttempt: Promise<void> | null = null;
 function startOllama(executable: string): Promise<void> {
   if (startAttempt) return startAttempt;
   startAttempt = new Promise<void>((resolve, reject) => {
-    execFile(executable, ["list"], {
+    const child = spawn(executable, ["serve"], {
+      detached: true,
+      stdio: "ignore",
       windowsHide: true,
-      timeout: 45_000,
-      maxBuffer: 512 * 1024,
-    }, (error) => {
-      if (error) reject(error);
-      else resolve();
+    });
+    child.once("error", reject);
+    child.once("spawn", () => {
+      child.unref();
+      setTimeout(resolve, 500);
     });
   }).finally(() => { startAttempt = null; });
   return startAttempt;
