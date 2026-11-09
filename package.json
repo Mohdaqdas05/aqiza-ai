@@ -1,0 +1,52 @@
+{
+  "name": "aqizaai",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "prisma generate && next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "test": "tsx --test tests/production-config.test.ts tests/ollama.test.ts tests/auth-providers.test.ts tests/guest-session.test.ts tests/user-preferences.test.ts tests/conversation-export.test.ts tests/conversation-pagination.test.ts tests/chat-request.test.ts",
+    "db:generate": "prisma generate",
+    "db:migrate": "cross-env RUST_LOG=info prisma migrate dev",
+    "db:deploy": "cross-env RUST_LOG=info prisma migrate deploy",
+    "db:studio": "prisma studio"
+  },
+  "dependencies": {
+    "@ai-sdk/google": "^3.0.0",
+    "@ai-sdk/groq": "^3.0.0",
+    "@ai-sdk/openai-compatible": "^2.0.0",
+    "@auth/prisma-adapter": "^2.11.1",
+    "@prisma/adapter-libsql": "^7.10.1",
+    "@prisma/client": "^7.10.1",
+    "ai": "^6.0.0",
+    "highlight.js": "^11.11.1",
+    "lucide-react": "^0.468.0",
+    "next": "^15.5.0",
+    "next-auth": "^5.0.0-beta.29",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-markdown": "^10.1.0",
+    "rehype-highlight": "^7.0.2",
+    "remark-gfm": "^4.0.1",
+    "zod": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.4",
+    "@types/react": "^19.0.8",
+    "@types/react-dom": "^19.0.3",
+    "cross-env": "^10.1.0",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^15.5.0",
+    "prisma": "^7.10.1",
+    "tsx": "^4.23.15",
+    "typescript": "^5.7.3"
+  },
+  "overrides": {
+    "postcss": "^8.5.23"
+  }
+}
