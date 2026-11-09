@@ -33,14 +33,13 @@ Keep this note current when continuing work on AqizaAI. The detailed installatio
 
 - Correct repository for this Next.js app: `Mohdaqdas05/aqiza-ai`.
 - `Mohdaqdas05/aqizaai` is a separate, older Express/Vite/PostgreSQL project. Do not push this Next.js app there.
-- PR #1 (`codex/aqizaai-project-setup` -> `main`) contains the app, detailed README, and handoff note; GitHub reports it open and clean/mergeable.
-- `.github/workflows/ci.yml` runs lint, the existing test suite, and the production build on pull requests to `main` and pushes to `main`. GitHub Actions run #1 for PR #1 completed successfully (install, lint, 22 tests, and production build).
+- PR #1 (`codex/aqizaai-project-setup` -> `main`) was merged after its checks passed; the app, detailed README, and handoff note are now on the default branch.
+- `.github/workflows/ci.yml` runs lint, the existing test suite, and the production build on pull requests to `main` and pushes to `main`. Both the PR check and the post-merge main check completed successfully (install, lint, 22 tests, and production build).
 - Local folder `D:\aqiza-ai` has no `.git` metadata. Use the connected GitHub integration for follow-up pushes; do not commit environment files or generated build/dependency folders.
 
 ## Remaining work
 
-1. Check the next GitHub Actions result after updating this handoff note.
-2. When credentials are available, test Google OAuth end-to-end and configure GitHub OAuth if desired.
-3. For production, provision durable database and Upstash settings, apply migrations, configure production callback URLs, and deploy.
-4. Continue the product roadmap from the original brief; keep the visual direction above in every UI change.
+1. When credentials are available, test Google OAuth end-to-end and configure GitHub OAuth if desired.
+2. For production, provision durable database and Upstash settings, apply migrations, configure production callback URLs, and deploy.
+3. Continue the product roadmap from the original brief; keep the visual direction above in every UI change.
 
