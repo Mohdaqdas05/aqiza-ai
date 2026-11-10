@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, Copy, Sparkles, UserRound } from "lucide-react";
+import { Check, Copy, UserRound } from "lucide-react";
 import { useState } from "react";
 import { MarkdownRenderer } from "@/components/MarkdownRenderer";
 
@@ -15,9 +15,12 @@ type Props = {
   message: ChatMessageItem;
   streaming?: boolean;
   loadingModel?: boolean;
+  loadingHint?: string;
+  userName?: string | null;
+  userImage?: string | null;
 };
 
-export function ChatMessage({ message, streaming = false, loadingModel = false }: Props) {
+export function ChatMessage({ message, streaming = false, loadingModel = false, loadingHint, userName, userImage }: Props) {
   const [copied, setCopied] = useState(false);
   const isUser = message.role === "user";
 
@@ -34,18 +37,22 @@ export function ChatMessage({ message, streaming = false, loadingModel = false }
   return (
     <article className={`message-row ${isUser ? "message-row-user" : "message-row-assistant"}`}>
       <div className={`message-avatar ${isUser ? "message-avatar-user" : "message-avatar-assistant"}`} aria-hidden="true">
-        {isUser ? <UserRound size={15} /> : <Sparkles size={14} />}
+        {isUser
+          ? userImage ? <img src={userImage} alt="" referrerPolicy="no-referrer" /> : userName ? userName.slice(0, 1).toUpperCase() : <UserRound size={15} />
+          : "a"}
       </div>
       <div className="message-main">
         <div className="message-meta">
-          <span>{isUser ? "You" : "AqizaAI"}</span>
+          <span>{isUser ? userName || "You" : "AqizaAI"}</span>
           {!isUser && streaming && <span className="streaming-label"><i /> {loadingModel ? "loading local model" : "generating"}</span>}
         </div>
         <div className={isUser ? "user-message-content" : "assistant-message-content"}>
           {isUser ? <p>{message.content}</p> : message.content
             ? <MarkdownRenderer content={message.content} />
             : streaming
-              ? <span className="thinking-indicator"><i /><i /><i /><span>{loadingModel ? "Loading the local model" : "Thinking"}</span></span>
+              ? loadingModel
+                ? <span className="model-warmup"><i />{loadingHint ?? "Starting the local model. The first reply can take a little longer while it loads."}</span>
+                : <span className="thinking-indicator"><i /><i /><i /><span>Thinking</span></span>
               : <span className="empty-message">No response was returned.</span>}
           {!isUser && streaming && message.content && <span className="streaming-cursor" aria-label="Response is streaming" />}
         </div>
@@ -61,3 +68,4 @@ export function ChatMessage({ message, streaming = false, loadingModel = false }
     </article>
   );
 }
+

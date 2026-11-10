@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="4500" height="1140" viewBox="0 0 4500 1140">
+  <defs>
+    <clipPath id="clip1"><rect x="0" y="0" width="1400" height="850" rx="15"/></clipPath>
+    <clipPath id="clip2"><rect x="0" y="0" width="1400" height="850" rx="15"/></clipPath>
+    <clipPath id="clip3"><rect x="0" y="0" width="1400" height="850" rx="15"/></clipPath>
+    <style>
+      .ui { font-family: 'IBM Plex Sans', Inter, Arial, sans-serif; }
+      .mono { font-family: 'JetBrains Mono', Consolas, monospace; }
+      .primary { fill: #eceeeb; }
+      .muted { fill: #979e99; }
+      .quiet { fill: #737a75; }
+      .accent { fill: #48b38a; }
+      .border { stroke: #2a302c; }
+    </style>
+  </defs>
+  <rect width="4500" height="1140" fill="#e9e7e1"/>
+  <text x="80" y="63" class="ui" fill="#252a27" font-size="30" font-weight="650">AqizaAI · Product UI direction</text>
+  <text x="80" y="99" class="ui" fill="#666c68" font-size="17">A quiet workspace for real conversations, local models, and an account when you need one.</text>
+
+  <!-- Guest empty state -->
+  <text x="80" y="153" class="ui" fill="#525853" font-size="13" font-weight="650" letter-spacing="1.1">01  /  GUEST WORKSPACE</text>
+  <g clip-path="url(#clip1)" transform="translate(80 180)">
+    <rect width="1400" height="850" fill="#101211"/>
+    <rect width="270" height="850" fill="#151816"/>
+    <path d="M270 0V850" stroke="#292e2b"/>
+    <text x="25" y="42" class="ui" fill="#f1f2ef" font-size="22" font-weight="700" letter-spacing="-0.7">aqiza</text>
+    <text x="82" y="42" class="ui" fill="#48b38a" font-size="22" font-weight="700" letter-spacing="-0.7">ai</text>
+    <rect x="18" y="68" width="234" height="47" rx="8" fill="#1c201e" stroke="#353b37"/>
+    <path d="M38 91h12m-6-6v12" stroke="#62c89d" stroke-width="1.8" stroke-linecap="round"/>
+    <text fill="#eceeeb" x="62" y="97" class="ui primary" font-size="14" font-weight="550">New chat</text>
+    <text fill="#737a75" x="210" y="97" class="mono quiet" font-size="10">Ctrl K</text>
+    <rect x="18" y="132" width="234" height="43" rx="8" fill="#171a18" stroke="#2d322f"/>
+    <circle cx="37" cy="153" r="6" fill="none" stroke="#909792" stroke-width="1.5"/><path d="m41 157 4 4" stroke="#909792" stroke-width="1.5"/>
+    <text fill="#979e99" x="55" y="158" class="ui muted" font-size="13">Search conversations</text>
+    <text fill="#737a75" x="24" y="218" class="ui quiet" font-size="11" font-weight="650" letter-spacing="1.2">RECENT</text>
+    <g class="ui" font-size="13" fill="#c8ccc9">
+      <path d="M27 244h12a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3h-6l-5 4v-15a3 3 0 0 1 3-3Z" fill="none" stroke="#767d78" stroke-width="1.4"/>
+      <text fill="#c8ccc9" x="54" y="256">Ollama setup notes</text>
+      <path d="M27 290h12a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3h-6l-5 4v-15a3 3 0 0 1 3-3Z" fill="none" stroke="#767d78" stroke-width="1.4"/>
+      <text fill="#c8ccc9" x="54" y="302">Refresh token runs twice</text>
+      <path d="M27 336h12a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3h-6l-5 4v-15a3 3 0 0 1 3-3Z" fill="none" stroke="#767d78" stroke-width="1.4"/>
+      <text fill="#c8ccc9" x="54" y="348">Review auth middleware</text>
+      <path d="M27 382h12a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3h-6l-5 4v-15a3 3 0 0 1 3-3Z" fill="none" stroke="#767d78" stroke-width="1.4"/>
+      <text fill="#c8ccc9" x="54" y="394">Clean up model settings</text>
+    </g>
+    <path d="M18 754h234" stroke="#2d322f"/>
+    <circle cx="35" cy="788" r="8" fill="none" stroke="#8d948e" stroke-width="1.5"/><path d="M35 774v4m0 20v4m-14-14h4m20 0h4m-24-10 3 3m14 14 3 3m0-20-3 3m-14 14-3 3" stroke="#8d948e" stroke-width="1.2"/>
+    <text x="56" y="792" class="ui" fill="#c7ccc8" font-size="13">Settings</text>
+    <rect x="18" y="800" width="234" height="50" rx="9" fill="#191d1b" stroke="#333a35"/>
+    <circle cx="43" cy="825" r="14" fill="#202522" stroke="#414944"/><path d="M43 819v12m-6-6h12" stroke="#aab0ab" stroke-width="1.4" stroke-linecap="round"/>
+    <text fill="#eceeeb" x="68" y="821" class="ui primary" font-size="12.5" font-weight="550">Sign in or create account</text>
+    <text fill="#979e99" x="68" y="838" class="ui muted" font-size="10.5">Optional · use local models as a guest</text>
+
+    <path d="M270 66h1130" stroke="#292e2b"/>
+    <text fill="#eceeeb" x="302" y="31" class="ui primary" font-size="14" font-weight="600">New chat</text>
+    <text fill="#979e99" x="302" y="49" class="ui muted" font-size="11">Private workspace</text>
+    <rect x="1230" y="17" width="143" height="31" rx="15.5" fill="#171c19" stroke="#303a34"/>
+    <circle cx="1247" cy="32.5" r="4" fill="#55bc8e"/>
+    <text x="1260" y="37" class="ui" fill="#c1c8c3" font-size="11">Local workspace</text>
+    <text fill="#eceeeb" x="835" y="335" text-anchor="middle" class="ui primary" font-size="32" font-weight="550" letter-spacing="-0.7">What are you working on?</text>
+    <text fill="#979e99" x="835" y="370" text-anchor="middle" class="ui muted" font-size="15">Ask a question, paste a snippet, or start with one of these.</text>
+    <g class="ui" font-size="12.5" fill="#c7ccc8">
+      <rect x="471" y="405" width="130" height="34" rx="17" fill="#171b19" stroke="#323834"/><text fill="#c8ccc9" x="536" y="427" text-anchor="middle">Explain this code</text>
+      <rect x="612" y="405" width="114" height="34" rx="17" fill="#171b19" stroke="#323834"/><text fill="#c8ccc9" x="669" y="427" text-anchor="middle">Find a bug</text>
+      <rect x="737" y="405" width="132" height="34" rx="17" fill="#171b19" stroke="#323834"/><text fill="#c8ccc9" x="803" y="427" text-anchor="middle">Plan a change</text>
+    </g>
+    <rect x="324" y="647" width="1018" height="125" rx="16" fill="#191d1b" stroke="#373d39"/>
+    <text fill="#979e99" x="348" y="681" class="ui muted" font-size="15">Message AqizaAI</text>
+    <circle cx="353" cy="739" r="13" fill="#222724" stroke="#414843"/><path d="M353 732v14m-7-7h14" stroke="#a5aca6" stroke-width="1.5" stroke-linecap="round"/>
+    <rect x="387" y="720" width="203" height="37" rx="8" fill="#202522" stroke="#3a423d"/>
+    <circle cx="405" cy="738.5" r="4" fill="#55bc8e"/>
+    <text fill="#eceeeb" x="418" y="743" class="ui primary" font-size="11.5" font-weight="550">qwen3.6:latest</text>
+    <text fill="#979e99" x="523" y="743" class="ui muted" font-size="10.5">Ollama</text>
+    <path d="m573 735 4 4 4-4" fill="none" stroke="#979e99" stroke-width="1.4"/>
+    <text fill="#737a75" x="1111" y="744" class="ui quiet" font-size="11">Enter to send  ·  Shift + Enter for new line</text>
+    <rect x="1293" y="718" width="35" height="35" rx="9" fill="#47ad83"/>
+    <path d="M1310 742v-14m0 0-5 5m5-5 5 5" stroke="#0e2119" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="710" cy="800" r="3" fill="#55bc8e"/>
+    <text fill="#979e99" x="835" y="804" text-anchor="middle" class="ui muted" font-size="11">Runs locally · Your prompts stay on this device</text>
+  </g>
+  <rect x="80" y="180" width="1400" height="850" rx="15" fill="none" stroke="#c9c7c1"/>
+
+  <!-- Signed in conversation -->
+  <text x="1550" y="153" class="ui" fill="#525853" font-size="13" font-weight="650" letter-spacing="1.1">02  /  SIGNED-IN CONVERSATION</text>
+  <g clip-path="url(#clip2)" transform="translate(1550 180)">
+    <rect width="1400" height="850" fill="#101211"/>
+    <rect width="270" height="850" fill="#151816"/><path d="M270 0V850" stroke="#292e2b"/>
+    <text x="25" y="42" class="ui" fill="#f1f2ef" font-size="22" font-weight="700" letter-spacing="-0.7">aqiza</text><text fill="#48b38a" x="82" y="42" class="ui accent" font-size="22" font-weight="700" letter-spacing="-0.7">ai</text>
+    <rect x="18" y="68" width="234" height="47" rx="8" fill="#1c201e" stroke="#353b37"/>
+    <path d="M38 91h12m-6-6v12" stroke="#62c89d" stroke-width="1.8" stroke-linecap="round"/><text fill="#eceeeb" x="62" y="97" class="ui primary" font-size="14" font-weight="550">New chat</text><text fill="#737a75" x="210" y="97" class="mono quiet" font-size="10">Ctrl K</text>
+    <rect x="18" y="132" width="234" height="43" rx="8" fill="#171a18" stroke="#2d322f"/><circle cx="37" cy="153" r="6" fill="none" stroke="#909792" stroke-width="1.5"/><path d="m41 157 4 4" stroke="#909792" stroke-width="1.5"/><text fill="#979e99" x="55" y="158" class="ui muted" font-size="13">Search conversations</text>
+    <text fill="#737a75" x="24" y="218" class="ui quiet" font-size="11" font-weight="650" letter-spacing="1.2">RECENT</text>
+    <rect x="12" y="272" width="246" height="39" rx="7" fill="#202522"/><path d="M27 285h12a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3h-6l-5 4v-15a3 3 0 0 1 3-3Z" fill="none" stroke="#60bf92" stroke-width="1.4"/><text fill="#eceeeb" x="54" y="298" class="ui primary" font-size="13">Refresh token runs twice</text>
+    <g class="ui" font-size="13" fill="#c8ccc9"><text fill="#c8ccc9" x="54" y="348">Ollama setup notes</text><text fill="#c8ccc9" x="54" y="394">Review auth middleware</text><text fill="#c8ccc9" x="54" y="440">Clean up model settings</text></g>
+    <g fill="none" stroke="#767d78" stroke-width="1.4"><path d="M27 336h12a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3h-6l-5 4v-15a3 3 0 0 1 3-3Z"/><path d="M27 382h12a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3h-6l-5 4v-15a3 3 0 0 1 3-3Z"/><path d="M27 428h12a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3h-6l-5 4v-15a3 3 0 0 1 3-3Z"/></g>
+    <path d="M18 754h234" stroke="#2d322f"/><circle cx="49" cy="808" r="18" fill="#23312a"/><text x="49" y="813" text-anchor="middle" class="ui" fill="#d4e5db" font-size="14" font-weight="600">A</text>
+    <text fill="#eceeeb" x="78" y="805" class="ui primary" font-size="13" font-weight="550">Aqdas</text><text fill="#979e99" x="78" y="823" class="ui muted" font-size="10.5">Signed in with Google</text><path d="m229 806 4 4 4-4" fill="none" stroke="#8e9690" stroke-width="1.5"/>
+    <path d="M270 66h1130" stroke="#292e2b"/><text fill="#eceeeb" x="302" y="39" class="ui primary" font-size="14" font-weight="600">Refresh token runs twice</text><text fill="#979e99" x="302" y="55" class="ui muted" font-size="11">Conversation · saved to your account</text>
+    <circle cx="1350" cy="34" r="15" fill="#171b19" stroke="#313733"/><circle cx="1350" cy="34" r="1.5" fill="#b6bdb8"/><circle cx="1350" cy="28" r="1.5" fill="#b6bdb8"/><circle cx="1350" cy="40" r="1.5" fill="#b6bdb8"/>
+    <text x="375" y="136" class="ui" fill="#cdd2ce" font-size="12" font-weight="550">Aqdas</text><circle cx="361" cy="132" r="12" fill="#23312a"/><text x="361" y="136" text-anchor="middle" class="ui" fill="#d4e5db" font-size="10" font-weight="600">A</text>
+    <rect x="346" y="153" width="734" height="77" rx="13" fill="#1b201d" stroke="#2c332e"/>
+    <text fill="#eceeeb" x="368" y="183" class="ui primary" font-size="14">Why does refreshToken run twice after a tab wakes up?</text>
+    <text fill="#979e99" x="368" y="205" class="ui muted" font-size="12.5">The focus handler and visibilitychange listener both trigger it.</text>
+    <rect x="349" y="269" width="29" height="29" rx="8" fill="#26372e"/><path d="M357 283h13m-6.5-6.5v13" stroke="#65c69a" stroke-width="1.4" stroke-linecap="round"/>
+    <text fill="#eceeeb" x="392" y="288" class="ui primary" font-size="13" font-weight="600">AqizaAI</text><circle cx="450" cy="284" r="3" fill="#56bb8d"/><text fill="#979e99" x="462" y="288" class="ui muted" font-size="11">qwen3.6:latest · local</text>
+    <text x="349" y="329" class="ui" fill="#d9ddda" font-size="14">Both listeners can fire during the same wake-up. If each starts a refresh</text>
+    <text x="349" y="352" class="ui" fill="#d9ddda" font-size="14">before either one updates the session state, the requests overlap.</text>
+    <text x="349" y="389" class="ui" fill="#d9ddda" font-size="14">Keep one in-flight promise and let both callers await it:</text>
+    <rect x="349" y="408" width="750" height="112" rx="10" fill="#171a18" stroke="#303733"/>
+    <text x="370" y="436" class="mono" fill="#999f9a" font-size="11">1</text><text x="398" y="436" class="mono" fill="#dfe4e0" font-size="12">let refreshInFlight: Promise&lt;Session&gt; | null = null;</text>
+    <text x="370" y="460" class="mono" fill="#999f9a" font-size="11">2</text><text x="398" y="460" class="mono" fill="#dfe4e0" font-size="12">if (!refreshInFlight) refreshInFlight = refreshSession();</text>
+    <text x="370" y="484" class="mono" fill="#999f9a" font-size="11">3</text><text x="398" y="484" class="mono" fill="#dfe4e0" font-size="12">return refreshInFlight;</text>
+    <text x="349" y="552" class="ui" fill="#d9ddda" font-size="14">Clear the reference in `finally` after the request settles, so a later wake-up</text>
+    <text x="349" y="575" class="ui" fill="#d9ddda" font-size="14">can refresh again. I’d also check whether both listeners are still needed.</text>
+    <text fill="#979e99" x="349" y="614" class="ui muted" font-size="11">Helpful?  <tspan fill="#c9ceca">↑</tspan>    <tspan fill="#c9ceca">↓</tspan>    ·    Copy    ·    Try again</text>
+    <rect x="324" y="666" width="1018" height="125" rx="16" fill="#191d1b" stroke="#373d39"/><text fill="#979e99" x="348" y="700" class="ui muted" font-size="15">Message AqizaAI</text>
+    <circle cx="353" cy="758" r="13" fill="#222724" stroke="#414843"/><path d="M353 751v14m-7-7h14" stroke="#a5aca6" stroke-width="1.5" stroke-linecap="round"/>
+    <rect x="387" y="739" width="203" height="37" rx="8" fill="#202522" stroke="#3a423d"/><circle cx="405" cy="757.5" r="4" fill="#55bc8e"/><text fill="#eceeeb" x="418" y="762" class="ui primary" font-size="11.5" font-weight="550">qwen3.6:latest</text><text fill="#979e99" x="523" y="762" class="ui muted" font-size="10.5">Ollama</text><path d="m573 754 4 4 4-4" fill="none" stroke="#979e99" stroke-width="1.4"/>
+    <text fill="#737a75" x="1111" y="763" class="ui quiet" font-size="11">Enter to send</text><rect x="1293" y="737" width="35" height="35" rx="9" fill="#47ad83"/><path d="M1310 761v-14m0 0-5 5m5-5 5 5" stroke="#0e2119" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <text fill="#737a75" x="835" y="816" text-anchor="middle" class="ui quiet" font-size="10.5">Local model · Private conversation</text>
+  </g>
+  <rect x="1550" y="180" width="1400" height="850" rx="15" fill="none" stroke="#c9c7c1"/>
+
+  <!-- Account entry overlay -->
+  <text x="3020" y="153" class="ui" fill="#525853" font-size="13" font-weight="650" letter-spacing="1.1">03  /  SIGN IN OR CONTINUE AS GUEST</text>
+  <g clip-path="url(#clip3)" transform="translate(3020 180)">
+    <rect width="1400" height="850" fill="#101211"/><rect width="270" height="850" fill="#151816"/><path d="M270 0V850" stroke="#292e2b"/>
+    <text x="25" y="42" class="ui" fill="#f1f2ef" font-size="22" font-weight="700" letter-spacing="-0.7">aqiza</text><text fill="#48b38a" x="82" y="42" class="ui accent" font-size="22" font-weight="700" letter-spacing="-0.7">ai</text>
+    <rect x="18" y="68" width="234" height="47" rx="8" fill="#1c201e" stroke="#353b37"/><path d="M38 91h12m-6-6v12" stroke="#62c89d" stroke-width="1.8" stroke-linecap="round"/><text fill="#eceeeb" x="62" y="97" class="ui primary" font-size="14" font-weight="550">New chat</text>
+    <rect x="18" y="132" width="234" height="43" rx="8" fill="#171a18" stroke="#2d322f"/><circle cx="37" cy="153" r="6" fill="none" stroke="#909792" stroke-width="1.5"/><path d="m41 157 4 4" stroke="#909792" stroke-width="1.5"/><text fill="#979e99" x="55" y="158" class="ui muted" font-size="13">Search conversations</text>
+    <text fill="#737a75" x="24" y="218" class="ui quiet" font-size="11" font-weight="650" letter-spacing="1.2">RECENT</text><text x="55" y="262" class="ui" fill="#c8ccc9" font-size="13">Ollama setup notes</text><text x="55" y="308" class="ui" fill="#c8ccc9" font-size="13">Refresh token runs twice</text>
+    <path d="M18 754h234" stroke="#2d322f"/><text x="56" y="792" class="ui" fill="#c7ccc8" font-size="13">Settings</text><rect x="18" y="800" width="234" height="50" rx="9" fill="#191d1b" stroke="#333a35"/><circle cx="43" cy="825" r="14" fill="#202522" stroke="#414944"/><text fill="#eceeeb" x="68" y="821" class="ui primary" font-size="12.5" font-weight="550">Sign in or create account</text><text fill="#979e99" x="68" y="838" class="ui muted" font-size="10.5">Optional · local access stays free</text>
+    <path d="M270 66h1130" stroke="#292e2b"/><text fill="#eceeeb" x="302" y="39" class="ui primary" font-size="14" font-weight="600">New chat</text><text fill="#979e99" x="302" y="55" class="ui muted" font-size="11">Private workspace</text>
+    <text fill="#eceeeb" x="835" y="337" text-anchor="middle" class="ui primary" font-size="31" font-weight="550">What are you working on?</text><text fill="#979e99" x="835" y="372" text-anchor="middle" class="ui muted" font-size="14">Start with a local model. Sign in only when you want an account.</text>
+    <rect x="324" y="647" width="1018" height="125" rx="16" fill="#191d1b" stroke="#373d39"/><text fill="#979e99" x="348" y="681" class="ui muted" font-size="15">Message AqizaAI</text>
+    <rect width="1400" height="850" fill="#070908" opacity="0.72"/>
+    <rect x="476" y="203" width="448" height="448" rx="17" fill="#191c1a" stroke="#3a413c"/>
+    <text x="510" y="244" class="ui" fill="#f0f2ef" font-size="17" font-weight="650">aqiza<tspan fill="#48b38a">ai</tspan></text>
+    <circle cx="891" cy="235" r="14" fill="#232825"/><path d="m886 230 10 10m0-10-10 10" stroke="#aab0ab" stroke-width="1.3" stroke-linecap="round"/>
+    <text fill="#eceeeb" x="700" y="301" text-anchor="middle" class="ui primary" font-size="23" font-weight="600">Sign in to AqizaAI</text>
+    <text fill="#979e99" x="700" y="333" text-anchor="middle" class="ui muted" font-size="13">Sync conversations and settings across devices.</text>
+    <text fill="#979e99" x="700" y="353" text-anchor="middle" class="ui muted" font-size="13">Your local chats stay on this device.</text>
+    <rect x="520" y="387" width="360" height="49" rx="9" fill="#eceeeb"/><circle cx="555" cy="411.5" r="9" fill="#fff"/><text x="555" y="415" text-anchor="middle" class="ui" fill="#4285f4" font-size="12" font-weight="700">G</text>
+    <text x="700" y="416" text-anchor="middle" class="ui" fill="#202421" font-size="14" font-weight="600">Continue with Google</text>
+    <text fill="#979e99" x="700" y="464" text-anchor="middle" class="ui muted" font-size="11.5">New to AqizaAI? Google creates your account automatically.</text>
+    <path d="M520 495h120M760 495h120" stroke="#353b37"/><text fill="#737a75" x="700" y="499" text-anchor="middle" class="ui quiet" font-size="11">OR</text>
+    <rect x="520" y="519" width="360" height="46" rx="9" fill="#202522" stroke="#3a423d"/><text x="700" y="547" text-anchor="middle" class="ui" fill="#d4d9d5" font-size="13" font-weight="550">Continue without an account</text>
+    <circle cx="570" cy="596" r="3" fill="#55bc8e"/><text fill="#979e99" x="700" y="600" text-anchor="middle" class="ui muted" font-size="11">Ollama and local models work without signing in.</text>
+  </g>
+  <rect x="3020" y="180" width="1400" height="850" rx="15" fill="none" stroke="#c9c7c1"/>
+</svg>
+
+
+

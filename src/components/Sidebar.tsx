@@ -1,9 +1,8 @@
 "use client";
 
-import { Clock3, Github, LogOut, MessageSquare, MoreHorizontal, Pencil, Plus, Search, Settings2, Trash2, X } from "lucide-react";
+import { Clock3, LogOut, MessageSquare, MoreHorizontal, Pencil, Plus, Search, Settings2, Trash2, X } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { ThemeToggle } from "@/components/ThemeToggle";
-import type { AuthProviderId } from "@/lib/auth-providers";
 
 export type ConversationSummary = {
   id: string;
@@ -31,12 +30,14 @@ type Props = {
   onOpenSettings: () => void;
   authenticated: boolean;
   accountName?: string | null;
-  authProviders: AuthProviderId[];
-  onSignIn: (provider: AuthProviderId) => void;
+  accountEmail?: string | null;
+  accountImage?: string | null;
+  accountProvider?: string | null;
+  onOpenSignIn: () => void;
   onSignOut: () => void;
 };
 
-export function Sidebar({ conversations, conversationCount, isSearching, hasMore, loadingMore, activeId, open, onClose, onNewChat, onSelect, onRename, onDelete, onSearchChange, onLoadMore, onOpenSettings, authenticated, accountName, authProviders, onSignIn, onSignOut }: Props) {
+export function Sidebar({ conversations, conversationCount, isSearching, hasMore, loadingMore, activeId, open, onClose, onNewChat, onSelect, onRename, onDelete, onSearchChange, onLoadMore, onOpenSettings, authenticated, accountName, accountEmail, accountImage, accountProvider, onOpenSignIn, onSignOut }: Props) {
   const [query, setQuery] = useState("");
   const [menuId, setMenuId] = useState<string | null>(null);
   const filtered = useMemo(() => conversations.filter((conversation) => conversation.title.toLowerCase().includes(query.trim().toLowerCase())), [conversations, query]);
@@ -66,7 +67,7 @@ export function Sidebar({ conversations, conversationCount, isSearching, hasMore
           </div>
           <button type="button" className="new-chat-button" onClick={onNewChat}>
             <Plus size={16} strokeWidth={2.3} />
-            <span>New conversation</span>
+            <span>New chat</span>
             <kbd>Ctrl K</kbd>
           </button>
           <label className="conversation-search">
@@ -111,36 +112,26 @@ export function Sidebar({ conversations, conversationCount, isSearching, hasMore
 
         <div className="sidebar-bottom">
           <button className="sidebar-utility" type="button" onClick={onOpenSettings}>
-            <Settings2 size={16} /><span>Settings &amp; instructions</span><kbd>Ctrl .</kbd>
+            <Settings2 size={16} /><span>Settings</span><kbd>Ctrl .</kbd>
           </button>
           <ThemeToggle />
-          <div className="sidebar-account">
-            <span className="account-avatar">{authenticated ? (accountName?.slice(0, 1).toUpperCase() ?? "G") : "A"}</span>
-            <div><strong>{authenticated ? accountName ?? "Signed-in account" : "Local workspace"}</strong><span>{authenticated ? "Signed in" : "Private to this browser"}</span></div>
-            {authenticated
-              ? <button type="button" className="account-action" onClick={onSignOut} aria-label="Sign out" title="Sign out"><LogOut size={14} /></button>
-              : <div className="account-provider-actions">
-                  <button
-                    type="button"
-                    className="account-action"
-                    disabled={!authProviders.includes("google")}
-                    onClick={() => onSignIn("google")}
-                    aria-label={authProviders.includes("google") ? "Sign in with Google" : "Google sign-in needs setup"}
-                    title={authProviders.includes("google") ? "Sign in with Google" : "Add AUTH_GOOGLE_ID and AUTH_GOOGLE_SECRET to enable Google sign-in"}
-                  >
-                    <span className="google-provider-mark" aria-hidden="true">G</span>
-                  </button>
-                  {authProviders.includes("github") && (
-                    <button type="button" className="account-action" onClick={() => onSignIn("github")} aria-label="Sign in with GitHub" title="Sign in with GitHub">
-                      <Github size={15} />
-                    </button>
-                  )}
-                  {authProviders.length === 0 && <span className="local-status" title="Private local session" />}
-                </div>
-            }
-          </div>
+          {authenticated ? (
+            <div className="sidebar-account sidebar-account-signed-in">
+              <span className={`account-avatar ${accountImage ? "account-avatar-image" : ""}`} aria-hidden="true">
+                {accountImage ? <img src={accountImage} alt="" referrerPolicy="no-referrer" /> : accountName?.slice(0, 1).toUpperCase() ?? "A"}
+              </span>
+              <div title={accountEmail ?? undefined}><strong>{accountName ?? "Your account"}</strong><span>{accountEmail ?? (accountProvider ? `Signed in with ${accountProvider === "google" ? "Google" : "GitHub"}` : "Signed in")}</span></div>
+              <button type="button" className="account-action" onClick={onSignOut} aria-label="Sign out" title="Sign out"><LogOut size={14} /></button>
+            </div>
+          ) : (
+            <button className="sidebar-account sidebar-account-guest" type="button" onClick={onOpenSignIn}>
+              <span className="account-avatar" aria-hidden="true">A</span>
+              <span className="sidebar-account-copy"><strong>Sign in or create account</strong><span>Optional · local models work as a guest</span></span>
+            </button>
+          )}
         </div>
       </aside>
     </>
   );
 }
+

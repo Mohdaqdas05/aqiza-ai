@@ -14,9 +14,10 @@ type Props = {
   disabled?: boolean;
   streaming?: boolean;
   onStop?: () => void;
+  privacyNote: string;
 };
 
-export function ChatInput({ value, onChange, onSubmit, model, readiness, onModelChange, disabled, streaming, onStop }: Props) {
+export function ChatInput({ value, onChange, onSubmit, model, readiness, onModelChange, disabled, streaming, onStop, privacyNote }: Props) {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
@@ -46,7 +47,7 @@ export function ChatInput({ value, onChange, onSubmit, model, readiness, onModel
           value={value}
           onChange={(event) => onChange(event.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Ask anything about your code…"
+          placeholder="Message AqizaAI"
           aria-label="Message AqizaAI"
           rows={1}
           maxLength={16_000}
@@ -70,7 +71,8 @@ export function ChatInput({ value, onChange, onSubmit, model, readiness, onModel
           </div>
         </div>
       </form>
-      <p className="composer-disclaimer">AI can make mistakes. Review important code before you ship it.</p>
+      <p className="composer-disclaimer">{privacyNote}</p>
     </div>
   );
 }
+
