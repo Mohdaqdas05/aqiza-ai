@@ -1,7 +1,7 @@
 "use client";
 
 import {
-  Braces, Check, Code2, Download, FileCode2, GitBranch, Moon, PanelLeft, ShieldCheck, Sun, X,
+  Check, Download, PanelLeft, X,
 } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { signIn, signOut, useSession } from "next-auth/react";
@@ -11,7 +11,6 @@ import { ChatMessage, type ChatMessageItem } from "@/components/ChatMessage";
 import { ModelSelector, type ModelReadiness } from "@/components/ModelSelector";
 import { Sidebar, type ConversationSummary } from "@/components/Sidebar";
 import { DEFAULT_MODEL, modelLabel } from "@/lib/models";
-import type { AuthProviderId } from "@/lib/auth-providers";
 
 type ConversationDetail = Omit<ConversationSummary, "messageCount"> & {
   systemPrompt: string;
@@ -34,10 +33,9 @@ function displayMessages(conversation: ConversationDetail): ChatMessageItem[] {
 }
 
 const QUICK_PROMPTS = [
-  { icon: Code2, title: "Understand a function", subtitle: "Follow the logic and edge cases", prompt: "Explain this code step by step. Point out any edge cases or assumptions:\n\n" },
-  { icon: Braces, title: "Trace a bug", subtitle: "Start from the evidence", prompt: "Help me debug this issue. Ask for missing context if needed, then explain the likely root cause and a minimal fix:\n\n" },
-  { icon: FileCode2, title: "Review a diff", subtitle: "Check correctness and risk", prompt: "Review this code for correctness, security, and performance. List only actionable findings with their severity:\n\n" },
-  { icon: GitBranch, title: "Shape an API", subtitle: "Find a clear boundary", prompt: "Help me design a developer-friendly API for this requirement. Include request and response examples, error behavior, and trade-offs:\n\n" },
+  { title: "Explain this code", prompt: "Explain this code and call out anything non-obvious:\n\n" },
+  { title: "Find a bug", prompt: "Look for the likely bug in this code. Explain what points to it:\n\n" },
+  { title: "Plan a change", prompt: "Help me plan this change in practical steps:\n\n" },
 ];
 
 async function requestJson<T>(url: string, init?: RequestInit): Promise<T> {
@@ -89,6 +87,7 @@ export function ChatWorkspace({ initialConversationId }: { initialConversationId
   const [localProviderError, setLocalProviderError] = useState("");
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [signInOpen, setSignInOpen] = useState(false);
   const [providerHelpOpen, setProviderHelpOpen] = useState(false);
   const [promptDraft, setPromptDraft] = useState("");
   const [isConnectingOllama, setIsConnectingOllama] = useState(false);
@@ -114,6 +113,15 @@ export function ChatWorkspace({ initialConversationId }: { initialConversationId
   const openSettingsRef = useRef<() => void>(() => undefined);
   const inputRef = useRef(input);
   inputRef.current = input;
+
+  useEffect(() => {
+    if (!signInOpen) return;
+    function closeOnEscape(event: KeyboardEvent) {
+      if (event.key === "Escape") setSignInOpen(false);
+    }
+    window.addEventListener("keydown", closeOnEscape);
+    return () => window.removeEventListener("keydown", closeOnEscape);
+  }, [signInOpen]);
 
   const enabledModelIds = useMemo(() => new Set(readiness?.models.filter((item) => item.enabled).map((item) => item.id) ?? []), [readiness]);
   const anyProviderEnabled = Boolean(readiness && (Object.values(readiness.providers).some(Boolean)));
@@ -751,6 +759,12 @@ export function ChatWorkspace({ initialConversationId }: { initialConversationId
   }
 
   const welcome = messages.length === 0 && !isLoadingConversation;
+  const googleSignInReady = readiness?.authProviders?.includes("google") ?? false;
+  const selectedLocalModel = readiness?.ollama.models.find((localModel) => localModel.id === model);
+  const localModelLoadingHint = selectedLocalModel?.parameterSize
+    && Number.parseFloat(selectedLocalModel.parameterSize) >= 20
+    ? `${selectedLocalModel.name} (${selectedLocalModel.parameterSize}) is loading. A model this size can take a few minutes to start on this computer.`
+    : `Starting ${selectedLocalModel?.name ?? "the local model"}. The first reply can take a little longer while Ollama warms it up.`;
   const lastMessage = messages.at(-1);
   const retryTarget = retryMessageId && lastMessage?.role === "user" && lastMessage.id === retryMessageId
     ? lastMessage
@@ -776,8 +790,10 @@ export function ChatWorkspace({ initialConversationId }: { initialConversationId
         onOpenSettings={openSettings}
         authenticated={Boolean(session?.user)}
         accountName={session?.user?.name}
-          authProviders={readiness?.authProviders ?? []}
-          onSignIn={(provider: AuthProviderId) => { void signIn(provider, { callbackUrl: pathname }); }}
+        accountEmail={session?.user?.email}
+        accountImage={session?.user?.image}
+        accountProvider={session?.user?.provider}
+        onOpenSignIn={() => setSignInOpen(true)}
         onSignOut={() => { void signOut({ callbackUrl: "/" }); }}
       />
       <main className="main-panel">
@@ -785,8 +801,8 @@ export function ChatWorkspace({ initialConversationId }: { initialConversationId
           <div className="topbar-left">
             <button className="icon-button desktop-menu-button" type="button" aria-label="Open conversations" onClick={() => setMobileNavOpen(true)}><PanelLeft size={17} /></button>
             <div className="topbar-title">
-              <strong>{conversationId ? conversations.find((item) => item.id === conversationId)?.title ?? "Conversation" : "Workspace"}</strong>
-              <span>Private, persistent conversations</span>
+              <strong>{conversationId ? conversations.find((item) => item.id === conversationId)?.title ?? "Conversation" : "New chat"}</strong>
+              <span>{conversationId && session?.user ? "Conversation · saved to your account" : session?.user ? "Your account workspace" : "Private workspace"}</span>
             </div>
           </div>
           <div className="topbar-right">
@@ -795,11 +811,7 @@ export function ChatWorkspace({ initialConversationId }: { initialConversationId
                 <Download size={15} />
               </button>
             )}
-            <ModelSelector value={model} readiness={readiness} onChange={changeModel} />
-            <span className="environment-label"><i />{session?.user ? "Account session" : "Browser session"}</span>
-            <button className="header-theme" type="button" aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`} onClick={toggleTheme}>
-              {theme === "dark" ? <Sun size={15} /> : <Moon size={15} />}
-            </button>
+            <span className="environment-label"><i />{session?.user ? "Account workspace" : "Local workspace"}</span>
           </div>
         </header>
 
@@ -807,18 +819,16 @@ export function ChatWorkspace({ initialConversationId }: { initialConversationId
           <div className="chat-content">
             {welcome ? (
               <section className="welcome-state">
-                <div className="welcome-eyebrow">Code, in context</div>
-                <h1>Work through<br />the <em>hard parts.</em></h1>
-                <p>Trace a bug, understand a function, or get a second read on a change. Keep the conversation grounded in your code.</p>
-                <div className="prompt-grid">
-                  {QUICK_PROMPTS.map(({ icon: Icon, title, subtitle, prompt }) => (
-                    <button className="prompt-card" key={title} type="button" onClick={() => { setInput(prompt); document.querySelector<HTMLTextAreaElement>(".composer textarea")?.focus(); }}>
-                      <strong><Icon size={14} /> {title}</strong>
-                      <span>{subtitle}</span>
+                <h1>What are you working on?</h1>
+                <p>Ask a question, paste a snippet, or start with one of these.</p>
+                <div className="prompt-suggestions">
+                  {QUICK_PROMPTS.map(({ title, prompt }) => (
+                    <button className="prompt-suggestion" key={title} type="button" onClick={() => { setInput(prompt); document.querySelector<HTMLTextAreaElement>(".composer textarea")?.focus(); }}>
+                      {title}
                     </button>
                   ))}
                 </div>
-                <div className="welcome-meta"><ShieldCheck size={13} /><span>{session?.user ? "Chats saved to your account" : "Chats stay in this browser session"}</span><span className="meta-dot" /><span>Markdown and code ready</span></div>
+                <div className="welcome-meta">{session?.user ? "Chats saved to your account" : "Chats stay in this browser session"}</div>
               </section>
             ) : isLoadingConversation ? (
               <div className="loading-thread" aria-label="Loading conversation"><span /><span /><span /></div>
@@ -830,6 +840,9 @@ export function ChatWorkspace({ initialConversationId }: { initialConversationId
                     message={message}
                     streaming={isStreaming && index === messages.length - 1 && message.role === "assistant"}
                     loadingModel={isLoadingLocalModel && index === messages.length - 1 && message.role === "assistant"}
+                    loadingHint={localModelLoadingHint}
+                    userName={session?.user?.name}
+                    userImage={session?.user?.image}
                   />
                 ))}
               </section>
@@ -855,6 +868,7 @@ export function ChatWorkspace({ initialConversationId }: { initialConversationId
           disabled={!selectedModelEnabled || !input.trim()}
           streaming={isStreaming}
           onStop={() => activeController.current?.abort()}
+          privacyNote={isLocalModel(model) ? "Local model · Private conversation" : "Messages are sent to your selected model provider"}
         />
         {!anyProviderEnabled && readiness && (
           <div className="composer-config-callout">
@@ -869,6 +883,34 @@ export function ChatWorkspace({ initialConversationId }: { initialConversationId
           </div>
         )}
       </main>
+
+      {signInOpen && !session?.user && (
+        <div className="modal-backdrop auth-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) setSignInOpen(false); }}>
+          <section className="auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-title" aria-describedby="auth-description">
+            <button className="auth-modal-close" type="button" onClick={() => setSignInOpen(false)} aria-label="Close sign-in dialog"><X size={16} /></button>
+            <span className="auth-brand">aqiza<span>ai</span></span>
+            <h2 id="auth-title">Sign in to AqizaAI</h2>
+            <p className="auth-description" id="auth-description">Sync conversations and settings across devices. Your local chats stay on this device.</p>
+            <button
+              className="google-sign-in-button"
+              type="button"
+              disabled={!googleSignInReady}
+              onClick={() => { if (googleSignInReady) void signIn("google", { callbackUrl: pathname }); }}
+            >
+              <span className="google-sign-in-mark" aria-hidden="true">G</span>
+              {readiness ? googleSignInReady ? "Continue with Google" : "Google sign-in is not set up" : "Checking Google sign-in…"}
+            </button>
+            {readiness && !googleSignInReady ? (
+              <p className="auth-setup-note">To enable Google sign-in, set <code>AUTH_GOOGLE_ID</code> and <code>AUTH_GOOGLE_SECRET</code> for this installation.</p>
+            ) : (
+              <p className="auth-account-note">New to AqizaAI? Google creates your account automatically.</p>
+            )}
+            <div className="auth-divider"><span>or</span></div>
+            <button className="guest-continue-button" type="button" onClick={() => setSignInOpen(false)}>Continue without an account</button>
+            <p className="auth-local-note"><i /> Ollama and local models work without signing in.</p>
+          </section>
+        </div>
+      )}
 
       {settingsOpen && (
         <div className="modal-backdrop" onMouseDown={(event) => { if (event.target === event.currentTarget) setSettingsOpen(false); }}>
@@ -963,3 +1005,4 @@ export function ChatWorkspace({ initialConversationId }: { initialConversationId
     </div>
   );
 }
+

@@ -30,10 +30,18 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   session: { strategy: "database" },
   trustHost: true,
   callbacks: {
-    session({ session, user }) {
-      if (session.user) session.user.id = user.id;
+    async session({ session, user }) {
+      if (session.user) {
+        session.user.id = user.id;
+        const account = await db.account.findFirst({
+          where: { userId: user.id },
+          select: { provider: true },
+        });
+        session.user.provider = account?.provider ?? null;
+      }
       return session;
     },
   },
 });
+
 
